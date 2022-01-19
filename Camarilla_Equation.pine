@@ -1,0 +1,120 @@
+//@version=4
+study(title="camrilla", shorttitle="camrilla", overlay=true)
+
+//PIVOT POINTS
+combpiv=input(true, "Multiple Pivots")
+onlylvl3=input(true, "Show Only lvl3")
+hl=input(true, "Previous Highs & Lows")
+
+//camrilla
+pivot = (high + low + close) / 3.0
+range = high - low
+h5 = (high/low) * close
+h4 = close + (high - low) * 1.1 / 2.0
+h3 = close + (high - low) * 1.1 / 4.0
+h2 = close + (high - low) * 1.1 / 6.0
+h1 = close + (high - low) * 1.1 / 12.0
+l1 = close - (high - low) * 1.1 / 12.0
+l2 = close - (high - low) * 1.1 / 6.0
+l3 = close - (high - low) * 1.1 / 4.0
+l4 = close - (high - low) * 1.1 / 2.0
+h6 = h5 + 1.168 * (h5 - h4)
+l5 = close - (h5 - close)
+l6 = close - (h6 - close)
+
+
+//Timeframe
+time15 = timeframe.period =='1' or timeframe.period =='3' or timeframe.period =='5' or timeframe.period == '15'
+time4h = timeframe.period =='30' or timeframe.period =='45' or timeframe.period =='60' or timeframe.period =='120' or timeframe.period =='180' or timeframe.period =='240'
+timeD = timeframe.isdaily
+timeM = timeframe.isweekly or timeframe.ismonthly
+
+//Daily Pivots
+dpivot = security(syminfo.tickerid, 'D', pivot[1], lookahead=barmerge.lookahead_on)
+drange = security(syminfo.tickerid, 'D', range[1], lookahead=barmerge.lookahead_on)
+dh5 = security(syminfo.tickerid, 'D', h5[1], lookahead=barmerge.lookahead_on)
+dh4 = security(syminfo.tickerid, 'D', h4[1], lookahead=barmerge.lookahead_on)
+dh3 = security(syminfo.tickerid, 'D', h3[1], lookahead=barmerge.lookahead_on)
+dh2 = security(syminfo.tickerid, 'D', h2[1], lookahead=barmerge.lookahead_on)
+dh1 = security(syminfo.tickerid, 'D', h1[1], lookahead=barmerge.lookahead_on)
+dl1 = security(syminfo.tickerid, 'D', l1[1], lookahead=barmerge.lookahead_on)
+dl2 = security(syminfo.tickerid, 'D', l2[1], lookahead=barmerge.lookahead_on)
+dl3 = security(syminfo.tickerid, 'D', l3[1], lookahead=barmerge.lookahead_on)
+dl4 = security(syminfo.tickerid, 'D', l4[1], lookahead=barmerge.lookahead_on)
+dh6 = security(syminfo.tickerid, 'D', h6[1], lookahead=barmerge.lookahead_on)
+dl5 = security(syminfo.tickerid, 'D', l5[1], lookahead=barmerge.lookahead_on)
+dl6 = security(syminfo.tickerid, 'D', l6[1], lookahead=barmerge.lookahead_on)
+
+plot(onlylvl3 and time15 and dpivot ? dpivot : na, title="D Pivots",color=color.blue, linewidth=2)
+plot(onlylvl3 and time15 and dh6 ? dh6 : na, title="D h6",color=color.green, linewidth=2)
+plot(onlylvl3 and time15 and dh5 ? dh5 : na, title="D h5",color=color.green, linewidth=2)
+plot(onlylvl3 and time15 and dh4 ? dh4 : na, title="D h4",color=color.green, linewidth=2)
+plot( time15 and dh3 ? dh3 : na, title="D h3",color=color.red, linewidth=2)
+plot(onlylvl3 and time15 and dh2 ? dh2 : na, title="D h2",color=color.green, linewidth=2)
+plot(onlylvl3 and time15 and dh1 ? dh1 : na, title="D h1",color=color.green, linewidth=2)
+plot(onlylvl3 and time15 and dl1 ? dl1 : na, title="D l1",color=color.green, linewidth=2)
+plot(onlylvl3 and time15 and dl2 ? dl2 : na, title="D l2",color=color.green, linewidth=2)
+plot (time15 and dl3 ? dl3 : na, title="D l3",color=color.red, linewidth=2)
+plot(onlylvl3 and time15 and dl4 ? dl4 : na, title="D l4",color=color.green, linewidth=2)
+plot(onlylvl3 and time15 and dl5 ? dl5 : na, title="D l5",color=color.green, linewidth=2)
+plot(onlylvl3 and time15 and dl6 ? dl6 : na, title="D l6",color=color.green, linewidth=2)
+
+//weekly Pivots
+wpivot = security(syminfo.tickerid, 'W', pivot[1], lookahead=barmerge.lookahead_on)
+wrange = security(syminfo.tickerid, 'W', range[1], lookahead=barmerge.lookahead_on)
+wh5 = security(syminfo.tickerid, 'W', h5[1], lookahead=barmerge.lookahead_on)
+wh4 = security(syminfo.tickerid, 'W', h4[1], lookahead=barmerge.lookahead_on)
+wh3 = security(syminfo.tickerid, 'W', h3[1], lookahead=barmerge.lookahead_on)
+wh2 = security(syminfo.tickerid, 'W', h2[1], lookahead=barmerge.lookahead_on)
+wh1 = security(syminfo.tickerid, 'W', h1[1], lookahead=barmerge.lookahead_on)
+wl1 = security(syminfo.tickerid, 'W', l1[1], lookahead=barmerge.lookahead_on)
+wl2 = security(syminfo.tickerid, 'W', l2[1], lookahead=barmerge.lookahead_on)
+wl3 = security(syminfo.tickerid, 'W', l3[1], lookahead=barmerge.lookahead_on)
+wl4 = security(syminfo.tickerid, 'W', l4[1], lookahead=barmerge.lookahead_on)
+wh6 = security(syminfo.tickerid, 'W', h6[1], lookahead=barmerge.lookahead_on)
+wl5 = security(syminfo.tickerid, 'W', l5[1], lookahead=barmerge.lookahead_on)
+wl6 = security(syminfo.tickerid, 'W', l6[1], lookahead=barmerge.lookahead_on)
+
+plot(onlylvl3 and time4h and wpivot ? wpivot : na, title="W Pivots",color=color.blue, linewidth=2)
+plot(onlylvl3 and time4h and wh6 ? wh6 : na, title="W h6",color=color.green, linewidth=2)
+plot(onlylvl3 and time4h and wh5 ? wh5 : na, title="W h5",color=color.green, linewidth=2)
+plot(onlylvl3 and time4h and wh4 ? wh4 : na, title="W h4",color=color.green, linewidth=2)
+plot( time4h and wh3 ? wh3 : na, title="W h3",color=color.red, linewidth=2)
+plot(onlylvl3 and time4h and wh2 ? wh2 : na, title="W h2",color=color.green, linewidth=2)
+plot(onlylvl3 and time4h and wh1 ? wh1 : na, title="W h1",color=color.green, linewidth=2)
+plot(onlylvl3 and time4h and wl1 ? wl1 : na, title="W l1",color=color.green, linewidth=2)
+plot(onlylvl3 and time4h and wl2 ? wl2 : na, title="W l2",color=color.green, linewidth=2)
+plot (time4h and wl3 ? wl3 : na, title="W l3",color=color.red, linewidth=2)
+plot(onlylvl3 and time4h and wl4 ? wl4 : na, title="W l4",color=color.green, linewidth=2)
+plot(onlylvl3 and time4h and wl5 ? wl5 : na, title="W l5",color=color.green, linewidth=2)
+plot(onlylvl3 and time4h and wl6 ? wl6 : na, title="W l6",color=color.green, linewidth=2)
+
+//monthly Pivots
+mpivot = security(syminfo.tickerid, 'M', pivot[1], lookahead=barmerge.lookahead_on)
+mrange = security(syminfo.tickerid, 'M', range[1], lookahead=barmerge.lookahead_on)
+mh5 = security(syminfo.tickerid, 'M', h5[1], lookahead=barmerge.lookahead_on)
+mh4 = security(syminfo.tickerid, 'M', h4[1], lookahead=barmerge.lookahead_on)
+mh3 = security(syminfo.tickerid, 'M', h3[1], lookahead=barmerge.lookahead_on)
+mh2 = security(syminfo.tickerid, 'M', h2[1], lookahead=barmerge.lookahead_on)
+mh1 = security(syminfo.tickerid, 'M', h1[1], lookahead=barmerge.lookahead_on)
+ml1 = security(syminfo.tickerid, 'M', l1[1], lookahead=barmerge.lookahead_on)
+ml2 = security(syminfo.tickerid, 'M', l2[1], lookahead=barmerge.lookahead_on)
+ml3 = security(syminfo.tickerid, 'M', l3[1], lookahead=barmerge.lookahead_on)
+ml4 = security(syminfo.tickerid, 'M', l4[1], lookahead=barmerge.lookahead_on)
+mh6 = security(syminfo.tickerid, 'M', h6[1], lookahead=barmerge.lookahead_on)
+ml5 = security(syminfo.tickerid, 'M', l5[1], lookahead=barmerge.lookahead_on)
+ml6 = security(syminfo.tickerid, 'M', l6[1], lookahead=barmerge.lookahead_on)
+
+plot(onlylvl3 and timeD and mpivot ? mpivot : na, title="M Pivots",color=color.blue, linewidth=2)
+plot(onlylvl3 and timeD and mh6 ? mh6 : na, title="M h6",color=color.green, linewidth=2)
+plot(onlylvl3 and timeD and mh5 ? mh5 : na, title="M h5",color=color.green, linewidth=2)
+plot(onlylvl3 and timeD and mh4 ? mh4 : na, title="M h4",color=color.green, linewidth=2)
+plot( timeD and mh3 ? mh3 : na, title="M h3",color=color.red, linewidth=2)
+plot(onlylvl3 and timeD and mh2 ? mh2 : na, title="M h2",color=color.green, linewidth=2)
+plot(onlylvl3 and timeD and mh1 ? mh1 : na, title="M h1",color=color.green, linewidth=2)
+plot(onlylvl3 and timeD and ml1 ? ml1 : na, title="M l1",color=color.green, linewidth=2)
+plot(onlylvl3 and timeD and ml2 ? ml2 : na, title="M l2",color=color.green, linewidth=2)
+plot (timeD and ml3 ? ml3 : na, title="M l3",color=color.red, linewidth=2)
+plot(onlylvl3 and timeD and ml4 ? ml4 : na, title="M l4",color=color.green, linewidth=2)
+plot(onlylvl3 and timeD and ml5 ? ml5 : na, title="M l5",color=color.green, linewidth=2)
+plot(onlylvl3 and timeD and ml6 ? ml6 : na, title="M l6",color=color.green, linewidth=2)
